@@ -9,6 +9,7 @@ export function Menu({ data }: MenuProps) {
   const [tracking, setTracking] = useState<string[]>([]);
 
   const transRef = useSpringRef();
+
   const transitions = useTransition(currentMenu, {
     ref: transRef,
     keys: null,
@@ -48,7 +49,7 @@ export function Menu({ data }: MenuProps) {
     transRef.start();
   }, [currentMenu]);
 
-  return transitions((style) => (
+  return (
     <div className="flex-col margin-auto mx-32 my-12 overflow-hidden bg-lightGray">
       <div className="bg-lightGray hover:bg-lightBlue p-5 w-full flex flex-row justify-between align-middle cursor-pointer group">
         {tracking.length > 0 ? (
@@ -62,19 +63,20 @@ export function Menu({ data }: MenuProps) {
           <h2 className="text-dark text-xl font-medium">{data.title}</h2>
         )}
       </div>
-      <animated.div style={style}>
-        {currentMenu.map((item: MenuItem, index: number) => {
-          return (
+
+      {transitions((style, item: MenuItem, t, i) => {
+        return (
+          <animated.div style={style} key={i}>
             <MenuItems
-              items={item}
-              key={index}
+              items={t.item}
+              key={i}
               onSelected={() => {
-                handleSelected(item, index);
+                handleSelected(item, i);
               }}
             />
-          );
-        })}
-      </animated.div>
+          </animated.div>
+        );
+      })}
     </div>
-  ));
+  );
 }
