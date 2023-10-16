@@ -7,7 +7,6 @@ import { useTransition, animated, useSpringRef } from "@react-spring/web";
 export function Menu({ data }: MenuProps) {
   const [currentMenu, setCurrentMenu] = useState<any>(data.items);
   const [tracking, setTracking] = useState<string[]>([]);
-
   const transRef = useSpringRef();
 
   const transitions = useTransition(currentMenu, {
@@ -19,7 +18,6 @@ export function Menu({ data }: MenuProps) {
   });
 
   const handleSelected = (item: any, index: number) => {
-    transRef.start();
     setCurrentMenu(currentMenu[index].nextItems);
 
     if (tracking.length > 0) {
