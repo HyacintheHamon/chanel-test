@@ -1,16 +1,14 @@
 import { MenuItems } from "@components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { MenuProps, MenuItem } from "@types";
-import { useTransition, animated, useSpringRef } from "@react-spring/web";
+import { useTransition, animated } from "@react-spring/web";
 
 export function Menu({ data }: MenuProps) {
   const [currentMenu, setCurrentMenu] = useState<any>(data.items);
   const [tracking, setTracking] = useState<string[]>([]);
-  const transRef = useSpringRef();
 
   const transitions = useTransition(currentMenu, {
-    ref: transRef,
     keys: null,
     exitBeforeEnter: true,
     from: { opacity: 0, transform: "translate3d(100%,0,0)" },
@@ -44,10 +42,6 @@ export function Menu({ data }: MenuProps) {
     setTracking(newTracking);
   };
 
-  useEffect(() => {
-    transRef.start();
-  }, [currentMenu]);
-
   return (
     <div className="flex-col margin-auto mx-32 my-12 overflow-hidden bg-lightGray">
       <div className="bg-lightGray hover:bg-lightBlue p-5 w-full flex flex-row justify-between align-middle cursor-pointer group">
@@ -67,8 +61,7 @@ export function Menu({ data }: MenuProps) {
         return (
           <animated.div style={style} key={i}>
             <MenuItems
-              items={t.item}
-              key={i}
+              items={item}
               onSelected={() => {
                 handleSelected(item, i);
               }}
