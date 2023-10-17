@@ -43,7 +43,7 @@ export function Menu({ data }: MenuProps) {
   };
 
   return (
-    <div className="flex-col margin-auto mx-32 my-12 overflow-hidden bg-lightGray">
+    <div className="flex-col margin-auto sm:mx-32 sm:my-12 overflow-hidden bg-lightGray">
       <div className="bg-lightGray hover:bg-lightBlue p-5 w-full flex flex-row justify-between align-middle cursor-pointer group">
         {tracking.length > 0 ? (
           <button onClick={handleGoBack}>
